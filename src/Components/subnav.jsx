@@ -32,16 +32,19 @@ const Subnav = () => {
 
     const updateScreen = () => {
         const width = window.innerWidth;
-        setScreenSize(width <= 796);
-        setSearchVisible(width > 796); 
-        setContainerVisible(true);
-        setExpandSearch(false);
+        const isMobile = width <= 796;
+        setScreenSize(isMobile);
+
+        if (!expandSearch) {
+            setSearchVisible(!isMobile);
+            setContainerVisible(true);
+        }
     };
 
     useEffect(() => {
         window.addEventListener('resize', updateScreen);
         return () => window.removeEventListener('resize', updateScreen);
-    }, []);
+    }, [expandSearch]);
 
     return (
         <div className='sub2'>
